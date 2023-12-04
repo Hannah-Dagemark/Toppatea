@@ -3,15 +3,12 @@ class Request
 
     def initialize(input)
         @input = input
-        @method = ""
-        @resource = ""
-        @version = ""
-        @headers = []
-        @params = []
-        deconstructor(@input)
+        variable_definer(@input)
     end
 
-    def deconstructor(input)
+    private 
+    
+    def variable_definer(input) ##Defines required class variables by splitting up the input text
         rows = input.split(/\n/)
         @method, @resource, @version = rows[0].split(' ')
         @headers, @params = {}, {}
@@ -28,6 +25,7 @@ class Request
             resource_deconstructor
         end
     end
+
     def header_constructor(rows, limit)
         for row in rows[1..limit-1]
             context, information = row.split(' ')
